@@ -46,7 +46,9 @@ class EndpointSettingsNormalizer implements DenormalizerInterface, NormalizerInt
         }
         $object = new \Docker\API\V1_33\Model\EndpointSettings();
         if (property_exists($data, 'IPAMConfig')) {
-            $object->setIPAMConfig($this->denormalizer->denormalize($data->{'IPAMConfig'}, 'Docker\\API\\V1_33\\Model\\EndpointIPAMConfig', 'json', $context));
+            if (is_object($data->{'IPAMConfig'})) {
+                $object->setIPAMConfig($this->denormalizer->denormalize($data->{'IPAMConfig'}, 'Docker\\API\\V1_33\\Model\\EndpointIPAMConfig', 'json', $context));
+            }
         }
         if (property_exists($data, 'Links')) {
             $values = [];
